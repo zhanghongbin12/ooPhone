@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <title></title>
+  <link rel="stylesheet" href="css/weuix.min.css" />
+  <link rel="stylesheet" href="css/index.css" />
+  <script src="js/zepto.min.js"></script>
+  <style>
+	.handle div{
+	    margin: 0px 5px;
+	}
+  </style>
+</head>
+<body>
+  <header>
+      <a onclick="javascript:window.history.back()" class="back"></a>
+        xxx的日志
+  </header>
+  <div class="contain read">
+      <div class="select">
+          <div class="bg_gray">
+             <span>填报时间</span> <input class="weui_input " type="text" value="2018-03-08" id='date' readonly/>
+          </div>
+          <div class="bg_gray">
+              <input class="weui_input text1" type="text" value="技术监督" id='text1' readonly/>
+          </div> 
+      </div>
+      <div class="box"></div>
+      <div class="textareo">
+          <div>
+              <span class="work">工作内容 <b class="jian"></b></span>
+              <textarea readonly></textarea>
+          </div>
+          <div class="bg_gray">
+             <span>工时</span> <input class="weui_input text2" type="text" value="" id='text2' readonly/>
+          </div> 
+          <div class="progess">
+              <span>完成进度</span>
+              <div class="gundong">
+                <div class="fang" style="width: 80%"></div>
+                <div class="yuan " style="left: calc(80% - 5px)"></div>
+              </div>
+              <div class="pre">80%</div>
+          </div>
+          <hr>
+
+          <div>
+              <span class="work">工作内容 <b class="jian"></b></span>
+              <textarea readonly></textarea>
+          </div>
+          <div class="bg_gray">
+             <span>工时</span> <input class="weui_input text2" type="text" value="" id='text2' readonly/>
+          </div> 
+          <div class="progess">
+              <span>完成进度</span>
+              <div class="gundong">
+                <div class="fang"></div>
+                <div class="yuan 4d7cb1"></div>
+              </div>
+              <div class="pre">0%</div>
+          </div>
+          <div class="box"></div>
+          <div >
+              <span class="work">审批意见 </span>
+          </div>
+
+          <div class="state">
+              
+               <div class="state_his">
+                    <h5>已办理</h5>
+                    <div>
+                       <div class="state_name">
+                            姓名
+                       </div>
+                       <div class="state_st">
+                            <span>审核通过</span><span>2018-04-29 08:03:27</span>
+                        </div> 
+                   </div> 
+                   <div>
+                       <div class="state_name">
+                            姓名
+                       </div>
+                       <div class="state_st">
+                            <span>审核通过</span><span>2018-04-29 08:03:27</span>
+                        </div> 
+                   </div> 
+               </div>
+          </div> 
+          <div class="box"></div>
+          <div >
+              <span class="work">请填写审批意见 </span>
+          </div>
+          <div class="textareo">
+              <textarea></textarea>
+          </div>
+          <div class="handle" >
+                <div id="pass">
+                  通过   
+                </div>
+                <div class="edit">
+                   驳回
+                </div>
+          </div>
+      </div>
+  </div>
+
+<script>
+    $(function(){
+        $("#pass").click(function(){
+           $.toast("已通过");
+        })
+        $(".edit").click(function(){
+           $.toast("已驳回");
+           setTimeout(function(){
+               window.history.back();
+           },2000)
+        })
+    }) 
+</script>
+</body>
+</html>

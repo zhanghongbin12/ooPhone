@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <title></title>
+  <link rel="stylesheet" href="css/weuix.min.css" />
+  <link rel="stylesheet" href="css/index.css" />
+  <script src="js/zepto.min.js"></script>
+  <script src="js/picker.js"></script>
+
+</head>
+<body>
+  <header>
+      <a onclick="javascript:window.history.back()" class="back"></a>
+        添加日志
+      <a class="add_rz" ></a>
+  </header>
+  <div class="contain">
+      <div class="select">
+          <div class="bg_gray">
+             <span>填报时间</span> <input class="weui_input" type="text" value="" id='date'/>
+          </div>
+          <div class="bg_gray">
+            <input class="weui_input text1" type="text" value="选择项目"  id='text1' readonly/>
+          </div> 
+          <div class="xl_sel">
+                <div class="option">不在项目</div>
+                <div>
+                    <h3 class="option">项目名称1</h3>
+                    <p>类型 <span>2018-03-11 - 2018-03-20</span></p>
+                </div>
+                <div>
+                    <h3 class="option">项目名称2</h3>
+                    <p>类型 <span>2018-03-11 - 2018-03-20</span></p>
+                </div>
+                <div>
+                    <h3 class="option">项目名称3</h3>
+                    <p>类型 <span>2018-03-11 - 2018-03-20</span></p>
+                </div>
+          </div>
+      </div>
+      <div class="box"></div>
+      <div class="textareo">
+          <div>
+              <span class="work">工作内容 <b class="jian"></b></span>
+              <textarea></textarea>
+          </div>
+          <div class="bg_gray">
+            <span>工时</span> <input class="weui_input text2" type="text" value="" id='text2'/>
+          </div>
+          <div class="progess">
+              <span>完成进度</span>
+              <div class="gundong">
+                <div class="fang"></div>
+                <div class="yuan"></div>
+              </div>
+              <div class="pre">0%</div>
+          </div>
+          
+      </div>
+      <div class="handle">
+          <div id="save">
+              保存
+          </div>
+      </div>
+  </div>
+
+<script>
+    $(function(){
+      $("#save").click(function(){
+           $.toast("保存成功");
+      })
+      $("#submit").click(function(){
+           $.toast("未保存日志", "forbidden");
+      })
+      var date =  new Date();
+      var maxTime = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+(date.getDate()+1);
+      var now = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+      var minTime =  date.getFullYear()+"-"+(date.getMonth()+1)+"-"+(date.getDate()-1);
+      $("#date").val(now);
+      $("#date").picker({
+         title: "填写时间",
+         toolbarCloseText:'确定',
+         cols: [{
+            textAlign: 'center',
+            values: [maxTime,now,minTime],
+         }]
+      })
+
+      $(".text2").picker({
+        title: "工时",
+        toolbarCloseText:'确定',
+        cols: [
+          {
+            textAlign: 'center',
+            values: ['1小时','2小时','3小时'],
+            displayValues:['1小时','2小时','3小时'],
+          }
+        ]
+      });
+      $(".text1").on("tap",function(){
+          $(".xl_sel").show();
+      })
+      $(".xl_sel>div").on("tap",function(){
+          var v = $(this).text();
+          if($(this).find(".option").length>0){
+              v = $(this).find(".option").text();
+          }
+          $(".text1").val(v);
+          $(".xl_sel").hide();
+      })
+      $(".yuan").on("touchstart",function(e){
+          var this_ = this;
+          var XX = e.changedTouches[0].pageX;
+          var offsetXX = e.changedTouches[0].radiusX;
+          var defautXX = XX - offsetXX - 79;
+          var width =  $(this_).parent().find(".fang").width();
+          var width2 = $(this_).parent().width();
+          $(document).on("touchmove",function(e){
+              var XX2 = e.changedTouches[0].pageX;
+              var defautXX2 = XX2-offsetXX-79;
+              if((width+defautXX2-defautXX) < 0 || (width+defautXX2-defautXX) > $(".gundong").width()){
+                  return;  
+              }
+              $(this_).css("left",(width+defautXX2-defautXX-5)+"px");
+              $(this_).parent().find(".fang").css("width",(width+defautXX2-defautXX)+"px");
+              $(this_).parent().parent().find(".pre").html((((width+defautXX2-defautXX)/width2)*100).toFixed(0)+"%");
+          })
+          $(document).on("touchend",function(){
+              $(document).off("touchmove");
+          })
+      })
+
+      $(".add_rz").on("touchend",function(){
+            $(".textareo").append("<hr><div> <span class='work'>工作内容<b class='jian'></b> </span> <textarea></textarea></div> <div class='bg_gray'><span>工时</span> <input class='weui_input text2' type='text' value='' id='text2'/> </div> <div class='progess'><span>完成进度</span><div class='gundong'> <div class='fang'></div><div class='yuan'></div></div><div class='pre'>0%</div></div>");
+            $(".text2").picker({
+                title: "工时",
+                toolbarCloseText:'确定',
+                cols: [
+                {
+                    textAlign: 'center',
+                    values: ['1小时','2小时','3小时'],
+                    displayValues:['1小时','2小时','3小时'],
+                }
+                ]
+            }); 
+             $(".yuan").on("touchstart",function(e){
+                var this_ = this;
+                var XX = e.changedTouches[0].pageX;
+                var offsetXX = e.changedTouches[0].radiusX;
+                var defautXX = XX - offsetXX - 79;
+                var width =  $(this_).parent().find(".fang").width();
+                var width2 = $(this_).parent().width();
+                $(document).on("touchmove",function(e){
+                    var XX2 = e.changedTouches[0].pageX;
+                    var defautXX2 = XX2-offsetXX-79;
+                    if((width+defautXX2-defautXX) < 0 || (width+defautXX2-defautXX) > $(".gundong").width()){
+                        return;  
+                    }
+                    $(this_).css("left",(width+defautXX2-defautXX-5)+"px");
+                    $(this_).parent().find(".fang").css("width",(width+defautXX2-defautXX)+"px");
+                    $(this_).parent().parent().find(".pre").html((((width+defautXX2-defautXX)/width2)*100).toFixed(0)+"%");
+                })
+                $(document).on("touchend",function(){
+                    $(document).off("touchmove");
+                })
+            })     
+      })
+      $(document).on('touchend',".jian",function(){
+         $(this).parent().parent().prev().remove();
+         $(this).parent().parent().next().next().remove();
+         $(this).parent().parent().next().remove();
+         $(this).parent().parent().remove();
+      })
+  }) 
+</script>
+</body>
+</html>
