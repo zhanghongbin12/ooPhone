@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <title></title>
+  <link rel="stylesheet" href="css/weuix.min.css" />
+  <link rel="stylesheet" href="css/index.css" />
+  <script src="js/zepto.min.js"></script>
+  <script src="js/picker.js"></script>
+  <style>
+    .name{
+	    background-color: #47a5bf;
+        color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <header>
+      <a onclick="javascript:window.history.back()" class="back"></a>
+       		请假列表
+       <a class="add" href="rzWrite_qj.html"></a>
+  </header>
+  <div class="seach">
+      <input type="text" value="" placeholder="搜索..."/>
+      <input type="text" value="" class="date"/>
+  </div>
+
+  <div class="contain">
+      <div class="box"></div>
+      <div class="done">
+          <div>
+            <div class="done_title"><span>待办</span> </div>
+            <div class="done_cont">xx的休假申请</div>
+            <hr>
+            <div class="done_cont">xx的休假申请</div>
+          </div>  
+      </div>
+      <div class="date_pro">
+            2018年   
+      </div>
+      <div class="project">
+           <div>
+              <div class="name">
+                  人名
+              </div>
+              <div class="title">
+                 <p>项目名称</p>
+                 <p> <b></b> <span>流程完成</span>  </p>
+              </div>
+           </div>
+            <div class="rz_con">
+                <p><span class="day">共0.5天</span> <span class="date1"> 04-04</span> <span>09:00 至</span> <span class="date1">04-05 </span>  <span> 09:00</span></p>  
+                <p><b></b> <span>爱神的箭啊啊事实上事萨达萨达萨达所大所大实上事实上所多就到达到</span></p>  
+            </div>
+           <div class="delet">
+                <div class="sub">提 交</div>
+                <div class="del">删 除</div>
+           </div>
+           <hr>
+      </div>
+      <div class="project">
+           <div>
+              <div class="name">
+                  人名
+              </div>
+              <div class="title">
+                 <p>项目名称</p>
+                 <p> <b></b> <span>流程完成</span> </p>
+              </div>
+           </div>
+             <div class="rz_con">
+                 <p><span class="day">共0.5天</span> <span class="date1"> 04-04</span> <span>09:00 至</span> <span class="date1">04-05 </span>  <span> 09:00</span></p>  
+                 <p><b></b> <span>爱神的箭啊啊就到达到</span></p>
+            </div>
+           <div class="delet">
+                <div class="sub">提 交</div>
+                <div class="del">删 除</div>
+           </div>
+           <hr>
+      </div>
+       <div class="box"></div>
+       <div class="date_pro">
+            2017年
+      </div>
+      <div class="project">
+           <div>
+              <div class="name">
+                  人名
+              </div>
+              <div class="title">
+                 <p>项目名称</p>
+                 <p> <b></b> <span>已提交</span> </p>
+              </div>
+           </div>
+            <div class="rz_con">
+                <p><span class="day">共0.5天</span> <span class="date1"> 04-04</span> <span>09:00 至</span> <span class="date1">04-05 </span>  <span> 09:00</span></p>  
+                <p><b></b> <span>爱神的箭就感二突然一条一条就到达到</span></p>  
+            </div>
+           <div class="delet">
+                <div class="sub">提 交</div>
+                <div class="del">删 除</div>
+           </div>
+           <hr>
+      </div>
+  </div>
+<script>
+    $(function(){
+        $(".delet").hide();
+    	$(".project").on('swipeLeft',function(ev){
+            $(this).css("transform","translate(-140px)");
+              $(this).find(".delet").show();
+        })
+        $(".project").on('swipeRight',function(ev){
+            var $this = $(this);
+            $this.css("transform","translate(0px)");
+            setTimeout(function(){
+                 $this.find(".delet").hide();
+            },500)
+        })
+
+        $(".date").datetimePicker({title:"选择时间",m:1});
+        $(document).on('tap',".close-picker",function(ev){
+            alert("开始时间为"+$(".date").val());
+        })
+        $(".project").on('tap',function(ev){
+            window.location.href = "rzRead_qj.html";
+        })
+        $(".done_cont").on('tap',function(ev){
+            window.location.href = "rzShenpi_qj.html";
+        })
+        $(".del").on("tap",function(ev){
+            var ths = $(this).parent().parent();
+            $.confirm("您确定要删除吗?", "确认删除?", function() {
+                $.toast("删除成功!");
+                setTimeout(function(){
+                    window.location.reload();
+                },1000)
+            }, function() {
+                 ths.css("transform","translate(1px)")
+                 $.toast("取消操作", "cancel");
+            });
+            return false;
+        })
+    }) 
+</script>
+</body>
+</html>
